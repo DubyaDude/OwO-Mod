@@ -51,7 +51,7 @@ namespace Ruby.Main
             owoified = owoified.Replace('R', 'W');
             owoified = owoified.Replace('L', 'W');
 
-            switch (randomizer.Next(0, 1))
+            switch (randomizer.Next(0, 2))
             {
                 case 0:
                     owoified = owoified.Replace("n", "ny");
@@ -60,7 +60,7 @@ namespace Ruby.Main
                     owoified = owoified.Replace("n", "nya");
                     break;
             }
-            switch (randomizer.Next(0, 1))
+            switch (randomizer.Next(0, 2))
             {
                 case 0:
                     owoified = owoified.Replace("!", "!");
@@ -69,7 +69,7 @@ namespace Ruby.Main
                     owoified = owoified.Replace("!", $" {owoFaces[randomizer.Next(0, owoFaces.Length)]}");
                     break;
             }
-            switch (randomizer.Next(0, 1))
+            switch (randomizer.Next(0, 2))
             {
                 case 0:
                     owoified = owoified.Replace("?", "?!");
@@ -78,7 +78,7 @@ namespace Ruby.Main
                     owoified = owoified.Replace("?", $" {owoFaces[randomizer.Next(0, owoFaces.Length)]}");
                     break;
             }
-            switch (randomizer.Next(0, 9))
+            switch (randomizer.Next(0, 10))
             {
                 case 7:
                     owoified = owoified += $" {owoStrings[randomizer.Next(0, owoStrings.Length)]}";

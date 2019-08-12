@@ -8,7 +8,7 @@ using VRLoader.Modules;
 
 namespace Ruby.Main
 {
-    [ModuleInfo("OwO Module", "vCutie-1.0", "DubyaDude Senpai and Native-kun <3")]
+    [ModuleInfo("OwO Module", "vCutie-2.0", "DubyaDude Senpai and Native-kun <3")]
 
     public class OwO : VRModule
     {

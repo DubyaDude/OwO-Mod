@@ -39,7 +39,6 @@ namespace Ruby.Main
         }
 
         //The actual OwO-ify filter provided by Native
-        public static System.Random randomizer = new System.Random();
         public static string Owoify(string text)
         {
             string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
@@ -51,7 +50,9 @@ namespace Ruby.Main
             owoified = owoified.Replace('R', 'W');
             owoified = owoified.Replace('L', 'W');
 
-            switch (randomizer.Next(0, 2))
+
+
+            switch (UnityEngine.Random.Range(0,1))
             {
                 case 0:
                     owoified = owoified.Replace("n", "ny");
@@ -60,28 +61,28 @@ namespace Ruby.Main
                     owoified = owoified.Replace("n", "nya");
                     break;
             }
-            switch (randomizer.Next(0, 2))
+            switch (UnityEngine.Random.Range(0, 1))
             {
                 case 0:
                     owoified = owoified.Replace("!", "!");
                     break;
                 case 1:
-                    owoified = owoified.Replace("!", $" {owoFaces[randomizer.Next(0, owoFaces.Length)]}");
+                    owoified = owoified.Replace("!", $" {owoFaces[UnityEngine.Random.Range(0, owoFaces.Length)]}");
                     break;
             }
-            switch (randomizer.Next(0, 2))
+            switch (UnityEngine.Random.Range(0, 1))
             {
                 case 0:
                     owoified = owoified.Replace("?", "?!");
                     break;
                 case 1:
-                    owoified = owoified.Replace("?", $" {owoFaces[randomizer.Next(0, owoFaces.Length)]}");
+                    owoified = owoified.Replace("?", $" {owoFaces[UnityEngine.Random.Range(0, owoFaces.Length)]}");
                     break;
             }
-            switch (randomizer.Next(0, 10))
+            switch (UnityEngine.Random.Range(0, 30))
             {
                 case 7:
-                    owoified = owoified += $" {owoStrings[randomizer.Next(0, owoStrings.Length)]}";
+                    owoified = owoified += $" {owoStrings[UnityEngine.Random.Range(0, owoStrings.Length)]}";
                     break;
             }
 

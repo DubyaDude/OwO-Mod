@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using Harmony;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using VRLoader.Attributes;
@@ -8,86 +7,60 @@ using VRLoader.Modules;
 
 namespace Ruby.Main
 {
-    [ModuleInfo("OwO Module", "vCutie-2.1", "DubyaDude Senpai and Native-kun <3")]
-
+    [ModuleInfo("OwO Module", "vCutie-2.2", "DubyaDude Senpai, Native-kun <3, and Herp Derpinstine")]
     public class OwO : VRModule
     {
-        public static bool isOwOifyOn = true;
-
-        public void Update()
+        public void Start()
         {
-            if (isOwOifyOn)
+            HarmonyInstance harmonyInstance = HarmonyInstance.Create("OwO");
+            harmonyInstance.Patch(typeof(Text).GetProperty("text").GetGetMethod(), null, new HarmonyMethod(typeof(OwO).GetMethod("GetText", BindingFlags.Static | BindingFlags.NonPublic)));
+        }
+
+        private static void GetText(ref string __result) { Owoify(ref __result); }
+
+        public static void Owoify(ref string text)
+        {
+            if (!string.IsNullOrEmpty(text) && !text.Contains("color="))
             {
-                Text[] texts = MonoBehaviour.FindObjectsOfType<Text>();
+                string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
+                string[] owoStrings = { "OwO *what's this*", "OwO *notices bulge*", "uwu yu so warm~", "owo pounces on you~~" };
 
-                foreach (Text text in texts)
+                text = text.Replace('r', 'w').Replace('l', 'w').Replace('R', 'W').Replace('L', 'W');
+
+                switch (Random.Range(0, 1))
                 {
-                    string textString = text.text;
-
-                    //Filters out the text that has already been converted as well as those with special colors 
-                    //(changes color to cowow)
-                    if (!textString.Contains("⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧") && !textString.Contains("color="))
-                    {
-                        textString = Owoify(textString);
-
-                        //⛧ is an invisible character in VRChat, therefore I used this as a 'tag' 
-                        //to see if something was already converted or not.
-                        text.text = textString + "⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧⛧";
-                    }
+                    case 0:
+                        text = text.Replace("n", "ny");
+                        break;
+                    case 1:
+                        text = text.Replace("n", "nya");
+                        break;
+                }
+                switch (Random.Range(0, 1))
+                {
+                    case 0:
+                        text = text.Replace("!", "!");
+                        break;
+                    case 1:
+                        text = text.Replace("!", owoFaces[Random.Range(0, owoFaces.Length)]);
+                        break;
+                }
+                switch (Random.Range(0, 1))
+                {
+                    case 0:
+                        text = text.Replace("?", "?!");
+                        break;
+                    case 1:
+                        text = text.Replace("?", owoFaces[Random.Range(0, owoFaces.Length)]);
+                        break;
+                }
+                switch (Random.Range(0, 30))
+                {
+                    case 7:
+                        text = text += owoStrings[Random.Range(0, owoStrings.Length)];
+                        break;
                 }
             }
         }
-
-        //The actual OwO-ify filter provided by Native
-        public static string Owoify(string text)
-        {
-            string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
-            string[] owoStrings = { "OwO *what's this*", "OwO *notices bulge*", "uwu yu so warm~", "owo pounces on you~~" };
-
-            string owoified = text;
-            owoified = owoified.Replace('r', 'w');
-            owoified = owoified.Replace('l', 'w');
-            owoified = owoified.Replace('R', 'W');
-            owoified = owoified.Replace('L', 'W');
-
-
-
-            switch (UnityEngine.Random.Range(0,1))
-            {
-                case 0:
-                    owoified = owoified.Replace("n", "ny");
-                    break;
-                case 1:
-                    owoified = owoified.Replace("n", "nya");
-                    break;
-            }
-            switch (UnityEngine.Random.Range(0, 1))
-            {
-                case 0:
-                    owoified = owoified.Replace("!", "!");
-                    break;
-                case 1:
-                    owoified = owoified.Replace("!", $" {owoFaces[UnityEngine.Random.Range(0, owoFaces.Length)]}");
-                    break;
-            }
-            switch (UnityEngine.Random.Range(0, 1))
-            {
-                case 0:
-                    owoified = owoified.Replace("?", "?!");
-                    break;
-                case 1:
-                    owoified = owoified.Replace("?", $" {owoFaces[UnityEngine.Random.Range(0, owoFaces.Length)]}");
-                    break;
-            }
-            switch (UnityEngine.Random.Range(0, 30))
-            {
-                case 7:
-                    owoified = owoified += $" {owoStrings[UnityEngine.Random.Range(0, owoStrings.Length)]}";
-                    break;
-            }
-
-            return owoified;
-        }
     }
 }
-

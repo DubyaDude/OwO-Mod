@@ -42,7 +42,7 @@ namespace Ruby.Main
                         text = text.Replace("!", "!");
                         break;
                     case 1:
-                        text = text.Replace("!", owoFaces[Random.Range(0, owoFaces.Length)]);
+                        text = text.Replace("!", (" " + owoFaces[Random.Range(0, owoFaces.Length)]));
                         break;
                 }
                 switch (Random.Range(0, 1))
@@ -51,13 +51,13 @@ namespace Ruby.Main
                         text = text.Replace("?", "?!");
                         break;
                     case 1:
-                        text = text.Replace("?", owoFaces[Random.Range(0, owoFaces.Length)]);
+                        text = text.Replace("?", (" " + owoFaces[Random.Range(0, owoFaces.Length)]));
                         break;
                 }
                 switch (Random.Range(0, 30))
                 {
                     case 7:
-                        text = text += owoStrings[Random.Range(0, owoStrings.Length)];
+                        text = text += (" " + owoStrings[Random.Range(0, owoStrings.Length)]);
                         break;
                 }
             }

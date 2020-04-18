@@ -73,12 +73,9 @@ namespace RubyMemes.OwO
 
         private static IntPtr TextMeshProPatch(IntPtr instance)
         {
-
             IntPtr pointer = IL2CPP.InvokeMethod(_getTextMeshProPointer, instance);
             if (pointer.ToString().Contains("-") || pointer == IntPtr.Zero)
                 return pointer;
-
-            MelonLoader.MelonModLogger.Log(ConsoleColor.Red, "IT DONE DID IT TO THIS: " + IL2CPP.IntPtrToString(pointer));
 
             return GenericTextPatch(instance, _getTextMeshProPointer);
         }

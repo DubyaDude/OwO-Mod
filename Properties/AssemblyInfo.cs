@@ -1,10 +1,14 @@
-﻿using System.Reflection;
+﻿using MelonLoader;
+using RubyMemes.OwO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+[assembly: MelonModInfo(typeof(OwO), "OwO Mod", "vCutie-3.0", "DubyaDude Senpai and Hector-kun <3", "https://github.com/DubyaDude/OwO-Module")]
+[assembly: MelonModGame(null, null)]
 [assembly: AssemblyTitle("OwO-Module")]
 [assembly: AssemblyDescription("OwO-ifies Everything!")]
 [assembly: AssemblyCompany("Ruby")]

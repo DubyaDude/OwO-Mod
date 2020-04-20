@@ -39,7 +39,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MelonLoader.ModHandler, Version=0.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MelonLoader.ModHandler, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_References\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
     </Reference>

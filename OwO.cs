@@ -19,97 +19,73 @@ namespace RubyMemes.OwO
         public override void OnApplicationStart()
         {
             harmonyInstance = HarmonyInstance.Create("RubyMemes.OwO");
-            try
-            {
-                harmonyInstance.Patch(typeof(Text).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
-                //_getTextPointer = NET_SDK.SDK.GetAssembly("UnityEngine.UI").GetClass("Text", "UnityEngine.UI").GetProperty("text").GetGetMethod().Ptr;
-               
-                MelonModLogger.Log("Patched Text To OwOify");
-            }
-            catch (Exception e)
-            {
-                MelonModLogger.LogError("FAIL! : Patched Text To OwOify\n" + e.ToString());
-            }
-
-            try
-            {
-                harmonyInstance.Patch(typeof(TextMesh).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
-                //_getTextMeshPointer = NET_SDK.SDK.GetAssembly("UnityEngine.TextRenderingModule").GetClass("TextMesh", "UnityEngine").GetProperty("text").GetGetMethod().Ptr;
-                
-                MelonModLogger.Log("Patched TextMesh To OwOify");
-            }
-            catch (Exception e)
-            {
-                MelonModLogger.LogError("FAIL! : Patched TextMesh To OwOify\n" + e.ToString());
-            }
-
-
-            try
-            {
-                harmonyInstance.Patch(typeof(TMP_Text).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
-                //_getTextMeshProPointer = NET_SDK.SDK.GetAssemblies().First(x => x.Name.Contains("TextMeshPro")).GetClass("TMP_Text", "TMPro").GetProperty("text").GetGetMethod().Ptr;
-               
-                MelonModLogger.Log("Patched TextMeshPro To OwOify");
-            }
-            catch (Exception e)
-            {
-                MelonModLogger.LogError("FAIL! : Patched TextMeshPro To OwOify\n" + e.ToString());
-            }
-        }
-        private static HarmonyMethod GetDetourMethod(string name) => new HarmonyMethod(typeof(OwO).GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static));
-
-
-        private static void GenericTextPatch(ref string __result)
-        {
-            if (isOwOing)
-                __result = OwOify(__result);
+            PatchIt(typeof(Text));
+            PatchIt(typeof(TextMesh));
+            PatchIt(typeof(TMP_Text));
         }
 
-        private static string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
-        private static string[] owoStrings = { "OwO *what's this*", "OwO *notices bulge*", "uwu yu so warm~", "owo pounces on you~~" };
-        private static Random rnd = new Random();
-        public static string OwOify(string text)
+        private static void PatchIt(Type type)
         {
-            if (string.IsNullOrEmpty(text) || text.Contains("color="))
-                return text;
+            try
+            {
+                harmonyInstance.Patch(type.GetProperty("text").GetGetMethod(),
+                                      null,
+                                      new HarmonyMethod(typeof(OwO).GetMethod(nameof(OwOify), BindingFlags.NonPublic | BindingFlags.Static))
+                                     );
+                MelonModLogger.Log($"Patched {type.Name} To OwOify");
+            }
+            catch(Exception e)
+            {
+                MelonModLogger.LogError($"FAIL! : Patched {type.Name} To OwOify\n{e.ToString()}");
+            }
+        }
 
-            text = text.Replace('r', 'w').Replace('l', 'w').Replace('R', 'W').Replace('L', 'W');
+        private static readonly string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
+        private static readonly string[] owoStrings = { "OwO *what's this*", "OwO *notices bulge*", "uwu yu so warm~", "owo pounces on you~~" };
+        private static readonly Random rnd = new Random();
+        private static void OwOify(ref string __result)
+        {
+            if (!isOwOing)
+                return;
+
+            if (string.IsNullOrEmpty(__result) || __result.Contains("color="))
+                return;
+
+            __result = __result.Replace('r', 'w').Replace('l', 'w').Replace('R', 'W').Replace('L', 'W');
 
             switch (rnd.Next(2))
             {
                 case 0:
-                    text = text.Replace("n", "ny");
+                    __result = __result.Replace("n", "ny");
                     break;
                 case 1:
-                    text = text.Replace("n", "nya");
+                    __result = __result.Replace("n", "nya");
                     break;
             }
             switch (rnd.Next(2))
             {
                 case 0:
-                    text = text.Replace("!", "!");
+                    __result = __result.Replace("!", "!");
                     break;
                 case 1:
-                    text = text.Replace("!", $" {owoFaces[rnd.Next(owoFaces.Length)]}");
+                    __result = __result.Replace("!", $" {owoFaces[rnd.Next(owoFaces.Length)]}");
                     break;
             }
             switch (rnd.Next(2))
             {
                 case 0:
-                    text = text.Replace("?", "?!");
+                    __result = __result.Replace("?", "?!");
                     break;
                 case 1:
-                    text = text.Replace("?", $" {owoFaces[rnd.Next(owoFaces.Length)]}");
+                    __result = __result.Replace("?", $" {owoFaces[rnd.Next(owoFaces.Length)]}");
                     break;
             }
             switch (rnd.Next(31))
             {
                 case 7:
-                    text += $" {owoStrings[rnd.Next(owoStrings.Length)]}";
+                    __result += $" {owoStrings[rnd.Next(owoStrings.Length)]}";
                     break;
             }
-
-            return text;
         }
     }
 }

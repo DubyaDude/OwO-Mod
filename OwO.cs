@@ -21,7 +21,6 @@ namespace RubyMemes.OwO
             harmonyInstance = HarmonyInstance.Create("RubyMemes.OwO");
             try
             {
-                MelonModLogger.Log(typeof(Text).GetProperty("text").GetGetMethod().Name);
                 harmonyInstance.Patch(typeof(Text).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
                 //_getTextPointer = NET_SDK.SDK.GetAssembly("UnityEngine.UI").GetClass("Text", "UnityEngine.UI").GetProperty("text").GetGetMethod().Ptr;
                

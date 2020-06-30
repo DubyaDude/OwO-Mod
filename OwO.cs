@@ -1,30 +1,31 @@
 ﻿using Harmony;
 using MelonLoader;
-using NET_SDK;
-using NET_SDK.Harmony;
-using NET_SDK.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace RubyMemes.OwO
 {
-
     public class OwO : MelonMod
     {
-        private static IntPtr _getTextPointer;
-        private static IntPtr _getTextMeshPointer;
-        private static IntPtr _getTextMeshProPointer;
+        private static bool isOwOing = true;
+        private static HarmonyInstance harmonyInstance;
 
         public override void OnApplicationStart()
         {
+            harmonyInstance = HarmonyInstance.Create("RubyMemes.OwO");
             try
             {
-                _getTextPointer = NET_SDK.SDK.GetAssembly("UnityEngine.UI").GetClass("Text", "UnityEngine.UI").GetProperty("text").GetGetMethod().Ptr;
-                HookOverrideCauseHerpREEEEEE(_getTextPointer, GetDetourMethod(nameof(TextPatch)));
-                MelonModLogger.Log(_getTextPointer + " : Patched Text To OwOify");
+                MelonModLogger.Log(typeof(Text).GetProperty("text").GetGetMethod().Name);
+                harmonyInstance.Patch(typeof(Text).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
+                //_getTextPointer = NET_SDK.SDK.GetAssembly("UnityEngine.UI").GetClass("Text", "UnityEngine.UI").GetProperty("text").GetGetMethod().Ptr;
+               
+                MelonModLogger.Log("Patched Text To OwOify");
             }
             catch (Exception e)
             {
@@ -33,9 +34,10 @@ namespace RubyMemes.OwO
 
             try
             {
-                _getTextMeshPointer = NET_SDK.SDK.GetAssembly("UnityEngine.TextRenderingModule").GetClass("TextMesh", "UnityEngine").GetProperty("text").GetGetMethod().Ptr;
-                HookOverrideCauseHerpREEEEEE(_getTextMeshPointer, GetDetourMethod(nameof(TextMeshPatch)));
-                MelonModLogger.Log(_getTextMeshPointer + " : Patched TextMesh To OwOify");
+                harmonyInstance.Patch(typeof(TextMesh).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
+                //_getTextMeshPointer = NET_SDK.SDK.GetAssembly("UnityEngine.TextRenderingModule").GetClass("TextMesh", "UnityEngine").GetProperty("text").GetGetMethod().Ptr;
+                
+                MelonModLogger.Log("Patched TextMesh To OwOify");
             }
             catch (Exception e)
             {
@@ -45,50 +47,25 @@ namespace RubyMemes.OwO
 
             try
             {
-                _getTextMeshProPointer = NET_SDK.SDK.GetAssemblies().First(x => x.Name.Contains("TextMeshPro")).GetClass("TMP_Text", "TMPro").GetProperty("text").GetGetMethod().Ptr;
-                HookOverrideCauseHerpREEEEEE(_getTextMeshProPointer, GetDetourMethod(nameof(TextMeshProPatch)));
-                MelonModLogger.Log(_getTextMeshProPointer + " : Patched TextMeshPro To OwOify");
+                harmonyInstance.Patch(typeof(TMP_Text).GetProperty("text").GetGetMethod(), null, GetDetourMethod(nameof(GenericTextPatch)));
+                //_getTextMeshProPointer = NET_SDK.SDK.GetAssemblies().First(x => x.Name.Contains("TextMeshPro")).GetClass("TMP_Text", "TMPro").GetProperty("text").GetGetMethod().Ptr;
+               
+                MelonModLogger.Log("Patched TextMeshPro To OwOify");
             }
             catch (Exception e)
             {
                 MelonModLogger.LogError("FAIL! : Patched TextMeshPro To OwOify\n" + e.ToString());
             }
         }
-        private static IntPtr GetDetourMethod(string name) => typeof(OwO).GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static).MethodHandle.GetFunctionPointer();
+        private static HarmonyMethod GetDetourMethod(string name) => new HarmonyMethod(typeof(OwO).GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static));
 
-        private static void HookOverrideCauseHerpREEEEEE(IntPtr orig, IntPtr reflect)
+
+        private static void GenericTextPatch(ref string __result)
         {
-            typeof(Imports).GetMethod("Hook", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { orig, reflect });
+            if (isOwOing)
+                __result = OwOify(__result);
         }
 
-        private static IntPtr TextPatch(IntPtr instance)
-        {
-            return GenericTextPatch(instance, _getTextPointer);
-        }
-
-        private static IntPtr TextMeshPatch(IntPtr instance)
-        {
-            return GenericTextPatch(instance, _getTextMeshPointer);
-        }
-
-        private static IntPtr TextMeshProPatch(IntPtr instance)
-        {
-            return GenericTextPatch(instance, _getTextMeshProPointer);
-        }
-
-        public static IntPtr GenericTextPatch(IntPtr instance, IntPtr original)
-        {
-            IntPtr pointer = IL2CPP.InvokeMethod(original, instance);
-            if (pointer.ToString().Contains("-") || pointer == IntPtr.Zero)
-                return pointer;
-
-            if (isOwOOn)
-                return IL2CPP.StringToIntPtr(OwOify(IL2CPP.IntPtrToString(pointer)));
-            else
-                return pointer;
-        }
-
-        private static bool isOwOOn = true;
         private static string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
         private static string[] owoStrings = { "OwO *what's this*", "OwO *notices bulge*", "uwu yu so warm~", "owo pounces on you~~" };
         private static Random rnd = new Random();

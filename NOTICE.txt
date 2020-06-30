@@ -1,0 +1,7 @@
+   OwO Mod
+   Copyright 2020 Ruby Core
+
+   MelonLoader
+   Copyright 2020 Lava Gang
+   
+   This product makes use of the utilities in MelonLoader.

@@ -21,7 +21,9 @@ namespace RubyMemes.OwO
             harmonyInstance = HarmonyInstance.Create("RubyMemes.OwO");
             PatchIt(typeof(Text));
             PatchIt(typeof(TextMesh));
-            PatchIt(typeof(TMP_Text));
+            
+            //Causes Crashes (at least in VRChat)
+            //PatchIt(typeof(TMP_Text));
         }
 
         private static void PatchIt(Type type)

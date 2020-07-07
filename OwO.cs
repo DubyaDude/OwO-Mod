@@ -15,6 +15,7 @@ namespace RubyMemes.OwO
     {
         private static bool isOwOing = true;
         private static HarmonyInstance harmonyInstance;
+        private static List<string> succPatches = new List<string>();
 
         public override void OnApplicationStart()
         {
@@ -26,6 +27,27 @@ namespace RubyMemes.OwO
             //PatchIt(typeof(TMP_Text));
         }
 
+        public override void OnLevelWasLoaded(int level)
+        {
+            if (succPatches.Contains("Text"))
+            {
+                Text[] textobjects = Resources.FindObjectsOfTypeAll<Text>();
+                foreach (Text text in textobjects)
+                {
+                    text.cachedTextGenerator.Invalidate();
+                    text.SetAllDirty();
+                }
+            }
+            //if (succPatches.Contains("TextMesh"))
+            //{
+            //    TextMesh[] textobjects = Resources.FindObjectsOfTypeAll<TextMesh>();
+            //    foreach (TextMesh text in textobjects)
+            //    {
+            //    }
+            //}
+        }
+
+
         private static void PatchIt(Type type)
         {
             try
@@ -35,16 +57,17 @@ namespace RubyMemes.OwO
                                       new HarmonyMethod(typeof(OwO).GetMethod(nameof(OwOify), BindingFlags.NonPublic | BindingFlags.Static))
                                      );
                 MelonModLogger.Log($"Patched {type.Name} To OwOify");
+                succPatches.Add(type.Name);
             }
             catch(Exception e)
             {
-                MelonModLogger.LogError($"FAIL! : Patched {type.Name} To OwOify\n{e.ToString()}");
+                MelonModLogger.LogError($"FAILED To Patch {type.Name} To OwOify (This usually means that the game doesn't use this component)\n{e.ToString()}");
             }
         }
 
         private static readonly string[] owoFaces = { "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "☆w☆", "✧w✧", "♥w♥", "゜w゜", "◕w◕", "ᅌwᅌ", "◔w◔", "ʘwʘ", "⓪w⓪", " ︠ʘw ︠ʘ", "(owo)" };
         private static readonly string[] owoStrings = { "OwO *what's this*", "OwO *notices bulge*", "uwu yu so warm~", "owo pounces on you~~" };
-        private static readonly Random rnd = new Random();
+        private static readonly System.Random rnd = new System.Random();
         private static void OwOify(ref string __result)
         {
             if (!isOwOing)

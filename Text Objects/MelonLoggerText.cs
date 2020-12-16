@@ -25,25 +25,25 @@ namespace RubyCore.OwO.Texts
 
                             if (parameters[0].ParameterType == typeof(object))
                             {
-                                harmonyInstance.Patch(method, GetPatchMethod(nameof(LogObjectFirstParam)));
+                                harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogObjectFirstParam), BindingFlags.NonPublic | BindingFlags.Static)));
                                 break;
                             }
                             else if (parameters[0].ParameterType == typeof(ConsoleColor))
                             {
                                 if (parameters[1].ParameterType == typeof(string))
                                 {
-                                    harmonyInstance.Patch(method, GetPatchMethod(nameof(LogStringSecondParam)));
+                                    harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogStringSecondParam), BindingFlags.NonPublic | BindingFlags.Static)));
                                 }
                                 else
                                 {
-                                    harmonyInstance.Patch(method, GetPatchMethod(nameof(LogObjectSecondParam)));
+                                    harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogObjectSecondParam), BindingFlags.NonPublic | BindingFlags.Static)));
                                 }
                                 break;
                             }
                             goto case "LogError";
                         case "LogWarning":
                         case "LogError":
-                            harmonyInstance.Patch(method, GetPatchMethod(nameof(LogStringFirstParam)));
+                            harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogStringFirstParam), BindingFlags.NonPublic | BindingFlags.Static)));
                             break;
                     }
                 }

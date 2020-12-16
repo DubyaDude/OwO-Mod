@@ -21,9 +21,6 @@ namespace RubyCore.OwO.Texts
 
         public virtual void UnPatch()
             => harmonyInstance.UnpatchAll();
-
-        protected HarmonyMethod GetPatchMethod(string name)
-            => new HarmonyMethod(this.GetType().GetMethod(nameof(name), BindingFlags.NonPublic | BindingFlags.Static));
     }
 
     public class OwOMonoTextBase : OwOTextBase

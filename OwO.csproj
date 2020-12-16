@@ -76,6 +76,8 @@
     <Compile Include="OwO.cs" />
     <Compile Include="Stuffs\Config.cs" />
     <Compile Include="Text Objects\Base.cs" />
+    <Compile Include="Text Objects\MelonLoggerErrorText.cs" />
+    <Compile Include="Text Objects\MelonLoggerWarningText.cs" />
     <Compile Include="Text Objects\MelonLoggerText.cs" />
     <Compile Include="Text Objects\TextMeshProText.cs" />
     <Compile Include="Text Objects\TextMeshText.cs" />

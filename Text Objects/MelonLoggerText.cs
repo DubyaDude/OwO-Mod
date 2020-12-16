@@ -14,37 +14,30 @@ namespace RubyCore.OwO.Texts
     {
         public override void Patch()
         {
-            foreach (MethodInfo method in typeof(MelonLogger).GetMethods(BindingFlags.Public | BindingFlags.Static))
+            foreach (MethodInfo method in typeof(MelonLogger).GetMethods(BindingFlags.Public | BindingFlags.Static).Where(method=> method.Name == "Log"))
             {
                 try
                 {
-                    switch (method.Name)
-                    {
-                        case "Log":
-                            ParameterInfo[] parameters = method.GetParameters();
+                    ParameterInfo[] parameters = method.GetParameters();
 
-                            if (parameters[0].ParameterType == typeof(object))
-                            {
-                                harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogObjectFirstParam), BindingFlags.NonPublic | BindingFlags.Static)));
-                                break;
-                            }
-                            else if (parameters[0].ParameterType == typeof(ConsoleColor))
-                            {
-                                if (parameters[1].ParameterType == typeof(string))
-                                {
-                                    harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogStringSecondParam), BindingFlags.NonPublic | BindingFlags.Static)));
-                                }
-                                else
-                                {
-                                    harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogObjectSecondParam), BindingFlags.NonPublic | BindingFlags.Static)));
-                                }
-                                break;
-                            }
-                            goto case "LogError";
-                        case "LogWarning":
-                        case "LogError":
-                            harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogStringFirstParam), BindingFlags.NonPublic | BindingFlags.Static)));
-                            break;
+                    if (parameters[0].ParameterType == typeof(object))
+                    {
+                        harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogObjectFirstParam), BindingFlags.NonPublic | BindingFlags.Static)));
+                    }
+                    else if (parameters[0].ParameterType == typeof(ConsoleColor))
+                    {
+                        if (parameters[1].ParameterType == typeof(string))
+                        {
+                            harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogStringSecondParam), BindingFlags.NonPublic | BindingFlags.Static)));
+                        }
+                        else
+                        {
+                            harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogObjectSecondParam), BindingFlags.NonPublic | BindingFlags.Static)));
+                        }
+                    }
+                    else
+                    {
+                        harmonyInstance.Patch(method, new HarmonyMethod(typeof(MelonLoggerText).GetMethod(nameof(LogStringFirstParam), BindingFlags.NonPublic | BindingFlags.Static)));
                     }
                 }
                 catch

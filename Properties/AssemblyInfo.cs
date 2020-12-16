@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: MelonInfo(typeof(OwO), "OwO Mod", "5.0.0-vCutie", "DubyaDude Senpai and Hector-kun <3", "https://github.com/DubyaDude/OwO-Module")]
+[assembly: MelonInfo(typeof(OwO), "OwO Mod", "5.0.0-Cutie", "DubyaDude Senpai, Hector-kun, HerpieDerpiestine, and KiaraChan", "https://github.com/DubyaDude/OwO-Module")]
 [assembly: MelonGame(null, null)]
 [assembly: AssemblyTitle("OwO-Module")]
 [assembly: AssemblyDescription("OwO-ifies Everything!")]

@@ -74,6 +74,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OwO.cs" />
+    <Compile Include="Stuffs\Config.cs" />
+    <Compile Include="Text Objects\Base.cs" />
+    <Compile Include="Text Objects\MelonLoggerText.cs" />
+    <Compile Include="Text Objects\TextMeshProText.cs" />
+    <Compile Include="Text Objects\TextMeshText.cs" />
+    <Compile Include="Text Objects\TextText.cs" />
+    <Compile Include="Stuffs\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -81,6 +88,7 @@
   <ItemGroup>
     <Analyzer Include="_References\MelonLoader\MelonLoader.ModHandler.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

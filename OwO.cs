@@ -30,6 +30,7 @@ namespace RubyCore.OwO
                     if (ConfigFile.GetValue(type.Name))
                     {
                         var owoObj = (Activator.CreateInstance(type) as OwOTextBase);
+                        owoObj.Patch();
 
                         if (type.IsSubclassOf(typeof(OwOMonoTextBase)))
                             OwOMonoTexts.Add((owoObj as OwOMonoTextBase));

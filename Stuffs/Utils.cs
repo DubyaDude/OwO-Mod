@@ -21,7 +21,7 @@ namespace RubyCore.OwO.Utilities
             {
                 harmonyInstance.Patch(type.GetProperty("text").GetGetMethod(),
                                       null,
-                                      new HarmonyMethod(typeof(Utils).GetMethod(nameof(OwOify), BindingFlags.NonPublic | BindingFlags.Static))
+                                      new HarmonyMethod(typeof(Utils).GetMethod(nameof(OwOify), BindingFlags.Public | BindingFlags.Static))
                                      );
             }
             catch (Exception e)

@@ -12,9 +12,30 @@ namespace OwO_Mod
     {
         public override void OnApplicationStart()
         {
-            TextOwO.Init();
-            TextMeshOwO.Init();
-            TMPOwO.Init();
+            try
+            {
+                TextOwO.Init();
+            }
+            catch(Exception e)
+            {
+                MelonLogger.Warning("Error at Text: " + Environment.NewLine + e);
+            }
+            try
+            {
+                TextMeshOwO.Init();
+            }
+            catch (Exception e)
+            {
+                MelonLogger.Warning("Error at TextMesh: " + Environment.NewLine + e);
+            }
+            try
+            {
+                TMPOwO.Init();
+            }
+            catch (Exception e)
+            {
+                MelonLogger.Warning("Error at TextMeshPro: " + Environment.NewLine + e);
+            }
         }
     }
 }

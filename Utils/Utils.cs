@@ -53,21 +53,8 @@ namespace OwO_Mod
         public static MethodInfo GetMethod(string MethodName, BindingFlags bindingAttributes = BindingFlags.NonPublic | BindingFlags.Static)
         {
             StackTrace stackTrace = new StackTrace();
-            try
-            {
-                Type callingType = stackTrace.GetFrame(1).GetMethod().DeclaringType;
-                MethodInfo targetMethod = callingType.GetMethod(MethodName, bindingAttributes);
-
-                if (targetMethod == null)
-                    MelonLogger.Error($"Null Method Grab: Method:{MethodName} | Type {callingType}", ConsoleColor.Yellow);
-                return targetMethod;
-
-            }
-            catch (Exception e)
-            {
-                MelonLogger.Error("This is so sad", e);
-            }
-            return null;
+            Type callingType = stackTrace.GetFrame(1).GetMethod().DeclaringType;
+            return callingType.GetMethod(MethodName, bindingAttributes);
         }
 
         public static IntPtr getClass(IntPtr inst) => IL2CPP.il2cpp_class_get_type(IL2CPP.il2cpp_object_get_class(inst));

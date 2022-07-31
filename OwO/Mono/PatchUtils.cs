@@ -1,80 +1,33 @@
-﻿using System;
-using UnhollowerBaseLib;
-using UnhollowerRuntimeLib;
-using UnityEngine;
-
-namespace OwO_Mod
+﻿namespace OwO_Mod
 {
     public static class PatchUtils
     {
-        public static IntPtr OwOifyGetObj<T>(IntPtr origMethodPtr, IntPtr instance)
+        public static void OwOifyGetObj<T>(ref string __result)
         {
             try
             {
-                IntPtr ret = InvokeMethod(origMethodPtr, instance);
-                if (getClass(instance) == Il2CppType.Of<T>().TypeHandle.Value)
-                {
-                    try
-                    {
-                        string text = IntPtrToString(ret);
-                        text = Utils.OwOify(text);
-                        return IL2CPP.il2cpp_string_new(text);
-                    }
-                    catch { }
-                }
-                return ret;
+                __result = Utils.OwOify(__result);
             }
             catch
             {
-                return IntPtr.Zero;
+                // ignored
             }
         }
 
-        public static void OwOifySetObj<T>(IntPtr origMethodPtr, IntPtr instance, IntPtr val) where T : MonoBehaviour
+        public static void OwOifySetObj<T>(ref string __0)
         {
             try
             {
-                string text = IntPtrToString(val);
-                text = Utils.OwOify(text);
-                InvokeMethod(origMethodPtr, instance, new IntPtr[] { IL2CPP.il2cpp_string_new(text) });
-                return;
+                if (!__0.Trim().EndsWith("m"))
+                {
+                    OwO.owoLogger.Msg("About to OwO " + __0);
+                }
+                __0 = Utils.OwOify(__0);
             }
-            catch { }
-            InvokeMethod(origMethodPtr, instance, new IntPtr[] { val });
-        }
-
-
-        public static IntPtr getClass(IntPtr inst) => IL2CPP.il2cpp_class_get_type(IL2CPP.il2cpp_object_get_class(inst));
-
-        public static unsafe string IntPtrToString(IntPtr ptr)
-        {
-            int length = IL2CPP.il2cpp_string_length(ptr);
-            if (length <= 0) return string.Empty;
-            return new string(IL2CPP.il2cpp_string_chars(ptr));
-        }
-
-        public unsafe static IntPtr InvokeMethod(IntPtr method, IntPtr obj, params IntPtr[] parameters)
-        {
-            fixed (void* parameterF = &parameters[0])
-                return InvokeMethod(method, obj, (void**)parameterF);
-        }
-
-        public unsafe static IntPtr InvokeMethod(IntPtr method, IntPtr obj)
-        {
-            return InvokeMethod(method, obj, (void**)IntPtr.Zero);
-        }
-
-        public unsafe static IntPtr InvokeMethod(IntPtr method, IntPtr obj, void** parameters)
-        {
-            if (method == IntPtr.Zero)
-                return IntPtr.Zero;
-            IntPtr exc = IntPtr.Zero;
-            IntPtr returnval = IL2CPP.il2cpp_runtime_invoke(method, obj, parameters, ref exc);
-            if (exc != IntPtr.Zero)
+            catch
             {
-                throw new InvalidOperationException($"Invoke failed");
+                // ignored
             }
-            return returnval;
         }
     }
 }

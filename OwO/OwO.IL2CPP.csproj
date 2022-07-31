@@ -7,7 +7,7 @@
     <ProjectGuid>{62CBA467-CBA0-407D-9E4E-38056AA1A799}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OwO.IL2CPP</RootNamespace>
+    <RootNamespace>OwO</RootNamespace>
     <AssemblyName>OwO.IL2CPP</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -33,6 +33,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\GameIL2CPP\MelonLoader\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>..\GameIL2CPP\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
       <Private>False</Private>

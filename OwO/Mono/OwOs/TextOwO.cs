@@ -1,5 +1,4 @@
-﻿using MelonLoader;
-using System;
+﻿using HarmonyLib;
 using System.Reflection;
 using UnityEngine.UI;
 
@@ -7,14 +6,14 @@ namespace OwO_Mod
 {
     internal static class TextOwO
     {
-        static IntPtr _getTextPointer;
+        static MethodInfo _getText;
 
         public static unsafe void Init()
         {
-            _getTextPointer = (IntPtr) typeof(Text).GetField("NativeMethodInfoPtr_get_text_Public_Virtual_New_get_String_0", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-            MelonUtils.NativeHookAttach(_getTextPointer, Utils.GetMethod(nameof(Patch)).MethodHandle.GetFunctionPointer());
+            _getText = typeof(Text).GetProperty(nameof(Text.text)).GetGetMethod();
+            OwO.owoHarmonyInstance.Patch(_getText, postfix: new HarmonyMethod(Utils.GetMethod(nameof(Patch))));
         }
 
-        internal static IntPtr Patch(IntPtr instance) => IL2CPPUtils.OwOifyGetObj<Text>(_getTextPointer, instance);
+        internal static void Patch(ref string __result) => PatchUtils.OwOifyGetObj<Text>(ref __result);
     }
 }

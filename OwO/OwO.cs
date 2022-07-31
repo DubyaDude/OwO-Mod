@@ -5,13 +5,19 @@ namespace OwO_Mod
 {
     public class OwO : MelonMod
     {
+        public static HarmonyLib.Harmony owoHarmonyInstance;
+        public static MelonLogger.Instance owoLogger;
+
         public override void OnApplicationStart()
         {
+            owoHarmonyInstance = this.HarmonyInstance;
+            owoLogger = LoggerInstance;
+
             try
             {
                 TextOwO.Init();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MelonLogger.Warning("Error at Text: " + Environment.NewLine + e);
             }

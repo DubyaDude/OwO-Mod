@@ -7,8 +7,8 @@
     <ProjectGuid>{0FD40813-1CA4-4E93-89C1-4681E8BC21AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OwO.IL2CPP</RootNamespace>
-    <AssemblyName>OwO.IL2CPP</AssemblyName>
+    <RootNamespace>OwO</RootNamespace>
+    <AssemblyName>OwO.Mono</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,6 +33,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\GameMono\MelonLoader\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader">
       <HintPath>..\GameMono\MelonLoader\MelonLoader.dll</HintPath>
       <Private>False</Private>

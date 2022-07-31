@@ -18,10 +18,6 @@
         {
             try
             {
-                if (!__0.Trim().EndsWith("m"))
-                {
-                    OwO.owoLogger.Msg("About to OwO " + __0);
-                }
                 __0 = Utils.OwOify(__0);
             }
             catch

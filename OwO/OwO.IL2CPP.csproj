@@ -75,7 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IL2CPP\IL2CPPUtils.cs" />
+    <Compile Include="IL2CPP\PatchUtils.cs" />
     <Compile Include="IL2CPP\OwOs\TextMeshOwO.cs" />
     <Compile Include="IL2CPP\OwOs\TextOwO.cs" />
     <Compile Include="IL2CPP\OwOs\TMPOwO.cs" />

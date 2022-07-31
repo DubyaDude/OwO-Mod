@@ -15,6 +15,6 @@ namespace OwO_Mod
             MelonUtils.NativeHookAttach(_getTextMeshPointer, Utils.GetMethod(nameof(Patch)).MethodHandle.GetFunctionPointer());
         }
 
-        internal static IntPtr Patch(IntPtr instance) => PatchUtils.OwOifyGetObj<TextMesh>(_getTextMeshPointer, instance);
+        internal static IntPtr Patch(IntPtr instance) => IL2CPPUtils.OwOifyGetObj<TextMesh>(_getTextMeshPointer, instance);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace OwO_Mod
 {
-    public static class IL2CPPUtils
+    public static class PatchUtils
     {
         public static IntPtr OwOifyGetObj<T>(IntPtr origMethodPtr, IntPtr instance)
         {

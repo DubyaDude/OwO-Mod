@@ -2,6 +2,11 @@
 This is a generic unity mod made for MelonLoader
 
 
-## Development Environment
-- Open Command Prompt inside the projject folder and type the following (replacing with YOUR vrchat directory)
-```mklink /j VRChat "C:\Program Files (x86)\Steam\steamapps\common\VRChat"```
+## Project Configuration
+Open Command Prompt inside the project folder and type the following (replacing with YOUR directory)
+
+```mklink /j GameIL2CPP "PATH\TO\IL2CPP\GAME"```
+
+```mklink /j GameMono "PATH\TO\MONO\GAME"```
+
+```mklink /j GameMonoData "PATH\TO\MONO\DATA"```

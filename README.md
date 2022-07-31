@@ -1,5 +1,5 @@
 # OwO-Mod
-This is a generic unity mod made for MelonLoader
+This MelonLoader mod OwOifies text from Text, TextMesh and TextMeshPro components.
 
 
 ## Project Configuration

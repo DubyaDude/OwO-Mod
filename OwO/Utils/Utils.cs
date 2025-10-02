@@ -6,6 +6,10 @@ namespace OwO_Mod
 {
     public static class Utils
     {
+        // Create a cache of already changed strings to prevent flickering of owoStrings when the text is getting set many times a second.
+        // (And maybe improve performance??? It's probably negligible idk)
+        public static Dictionary<string, string> alreadyAppliedOwOs = new Dictionary<string, string>();
+        
         public static MethodInfo GetMethod(string MethodName, BindingFlags bindingAttributes = BindingFlags.NonPublic | BindingFlags.Static)
         {
             StackTrace stackTrace = new StackTrace();

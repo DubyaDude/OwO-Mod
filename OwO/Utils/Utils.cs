@@ -33,6 +33,12 @@ namespace OwO_Mod
             if (string.IsNullOrEmpty(text) || text.Contains("color="))
                 return text;
 
+            if (alreadyAppliedOwOs.ContainsKey(text) && alreadyAppliedOwOs[text] != null) {
+                return alreadyAppliedOwOs[text];
+            }
+            
+            string oldText = text;
+            
             text = text.Replace('r', 'w').Replace('l', 'w').Replace('R', 'W').Replace('L', 'W');
 
             switch (rnd.Next(2))
@@ -71,7 +77,9 @@ namespace OwO_Mod
                     text += $" {owoStrings[rnd.Next(owoStrings.Length)]}";
                     break;
             }
-
+            
+            alreadyAppliedOwOs.Add(oldText, text);
+            
             return text;
         }
     }

@@ -1,5 +1,5 @@
-﻿using System;
-using MelonLoader;
+﻿using MelonLoader;
+using System;
 
 namespace OwO_Mod
 {

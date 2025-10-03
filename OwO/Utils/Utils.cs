@@ -6,6 +6,10 @@ namespace OwO_Mod
 {
     public static class Utils
     {
+        // Create a cache of already changed strings to prevent flickering of owoStrings when the text is getting set many times a second.
+        // (And maybe improve performance??? It's probably negligible idk)
+        public static Dictionary<string, string> alreadyAppliedOwOs = new Dictionary<string, string>();
+        
         public static MethodInfo GetMethod(string MethodName, BindingFlags bindingAttributes = BindingFlags.NonPublic | BindingFlags.Static)
         {
             StackTrace stackTrace = new StackTrace();
@@ -29,6 +33,12 @@ namespace OwO_Mod
             if (string.IsNullOrEmpty(text) || text.Contains("color="))
                 return text;
 
+            if (alreadyAppliedOwOs.ContainsKey(text) && alreadyAppliedOwOs[text] != null) {
+                return alreadyAppliedOwOs[text];
+            }
+            
+            string oldText = text;
+            
             text = text.Replace('r', 'w').Replace('l', 'w').Replace('R', 'W').Replace('L', 'W');
 
             switch (rnd.Next(2))
@@ -67,7 +77,9 @@ namespace OwO_Mod
                     text += $" {owoStrings[rnd.Next(owoStrings.Length)]}";
                     break;
             }
-
+            
+            alreadyAppliedOwOs.Add(oldText, text);
+            
             return text;
         }
     }

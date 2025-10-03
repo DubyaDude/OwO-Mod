@@ -8,7 +8,8 @@ namespace OwO_Mod
         public static HarmonyLib.Harmony owoHarmonyInstance;
         public static MelonLogger.Instance owoLogger;
 
-        public override void OnApplicationStart()
+        //Upgrade to new OnInitializeMelon because OnApplicationStart is depreciated.
+        public override void OnInitializeMelon()
         {
             owoHarmonyInstance = this.HarmonyInstance;
             owoLogger = LoggerInstance;
@@ -38,6 +39,13 @@ namespace OwO_Mod
                 MelonLogger.Warning("Error at TextMeshPro: " + Environment.NewLine + e);
             }
         }
+
+        //Clear cache for more randomness and strings that are not likely to appear outside their own scene.
+        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        {
+            Utils.alreadyAppliedOwOs.Clear();
+        }
     }
 }
+
 

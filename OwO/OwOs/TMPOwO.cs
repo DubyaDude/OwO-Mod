@@ -15,7 +15,8 @@ namespace OwO_Mod
         {
             Assembly textMeshProAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "Unity.TextMeshPro");
 
-            if (textMeshProAssembly == null) {
+            if (textMeshProAssembly == null)
+            {
                 throw new DllNotFoundException($"Could not locate assembly: \"Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\"");
             }
 

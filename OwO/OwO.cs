@@ -1,5 +1,5 @@
-﻿using MelonLoader;
 using System;
+using MelonLoader;
 
 namespace OwO_Mod
 {
@@ -8,7 +8,7 @@ namespace OwO_Mod
         public static HarmonyLib.Harmony owoHarmonyInstance;
         public static MelonLogger.Instance owoLogger;
 
-        //Upgrade to new OnInitializeMelon because OnApplicationStart is depreciated.
+        // Upgrade to new OnInitializeMelon because OnApplicationStart is depreciated.
         public override void OnInitializeMelon()
         {
             owoHarmonyInstance = this.HarmonyInstance;
@@ -40,7 +40,7 @@ namespace OwO_Mod
             }
         }
 
-        //Clear cache for more randomness and strings that are not likely to appear outside their own scene.
+        // Clear cache for more randomness and strings that are not likely to appear outside their own scene.
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
             Utils.alreadyAppliedOwOs.Clear();

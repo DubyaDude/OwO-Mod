@@ -1,0 +1,7 @@
+Following files are needed here to build:
+
+0Harmony.dll
+MelonLoader.dll
+UnityEngine.CoreModule.dll
+UnityEngine.TextRenderingModule.dll
+UnityEngine.UI.dll

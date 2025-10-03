@@ -1,7 +1,7 @@
    OwO Mod
-   Copyright 2020 Ruby Core
+   Copyright 2025 DubyaDude
 
    MelonLoader
-   Copyright 2020 Lava Gang
+   Copyright 2025 Lava Gang
    
    This product makes use of the utilities in MelonLoader.

@@ -1,5 +1,4 @@
-using OwO_Mod;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using MelonLoader;
 using OwO_Mod;
@@ -7,11 +6,11 @@ using OwO_Mod;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: MelonInfo(typeof(OwO), "OwO Mod", "7.0.0-Cutie", "DubyaDude Senpai, Hector-kun, and HerpieDerpiestine", "https://github.com/DubyaDude/OwO-Module")]
+[assembly: MelonInfo(typeof(OwO), "OwO Mod", "8.0.0-Cutie", "DubyaDude Senpai, Teodowo, Hector-kun, and HerpieDerpiestine", "https://github.com/DubyaDude/OwO-Module")]
 [assembly: MelonGame(null, null)]
 [assembly: AssemblyTitle("OwO-Module")]
 [assembly: AssemblyDescription("OwO-ifies Everything!")]
-[assembly: AssemblyCompany("RubyCore")]
+[assembly: AssemblyCompany("DubyaDude")]
 [assembly: AssemblyProduct("OwO-Module")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

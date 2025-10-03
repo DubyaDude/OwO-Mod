@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using MelonLoader;
 
 namespace OwO_Mod
@@ -17,22 +17,27 @@ namespace OwO_Mod
             try
             {
                 TextOwO.Init();
+                MelonLogger.Msg("Text patched.");
             }
             catch (Exception e)
             {
                 MelonLogger.Warning("Error at Text: " + Environment.NewLine + e);
             }
+
             try
             {
                 TextMeshOwO.Init();
+                MelonLogger.Msg("TextMesh patched.");
             }
             catch (Exception e)
             {
                 MelonLogger.Warning("Error at TextMesh: " + Environment.NewLine + e);
             }
+
             try
             {
                 TMPOwO.Init();
+                MelonLogger.Msg("TextMeshPro patched.");
             }
             catch (Exception e)
             {
